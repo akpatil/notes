@@ -1,0 +1,45 @@
+Spring Container:
+	- Spring Provides us with a container, and our application objects live inside that container.
+ 	- Spring container also wires many objects together according to its configuration.
+ 	- It manages their complete lifecycle from start to finish.
+ 	- Two distinct types of Spring Containers:
+ 		- Bean Factory
+ 		- Application Context
+
+ 	Bean Factory:
+ 		- It is an interface & it is a type of Spring IoC Container.
+ 		- XmlBeanFactory is an implementation class of Bean Factory.
+
+ 	Application Context:
+ 		- It is an interface & it is a type of Spring IoC Container.
+ 		- It is simply a wrapper of the bean factory & provides additional faetures like:
+ 			- support for AOP
+ 			- declarative transactions
+ 			- security
+ 			- ability to push application events to intrested listeners
+
+ 		- Different types for creating container with Application context:
+ 			- FileSystemXmlApplicationContext
+ 				- Loads bean definations from XML file stored in the file system.
+ 			- ClassPathXmlApplicationContext
+ 				- Loads bean definations from XML file located in classpath of the application.
+ 			- AnnotationConfigApplicationContext
+ 				- Loads bean defination from java configuration classes
+
+ 		- Spring also provides Web-aware implementations of Application Context:
+ 			- XmlWebApplicationContext
+ 				- Loads bean definations from XML file contained in a web application
+ 			- AnnotationConfigWebApplicationContext
+ 				- Loads bean definations from java configuration classes contained in a web application
+
+ 		- Application Context is an interface and above types are concrete classes of it.
+
+ 			ApplicationContext context = new FileSystemXmlApplicationContext("d:/spring.xml");
+
+ 			ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+
+ 			ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+ 		- To fetch the bean from the context:
+
+ 			TransferService service = context.getBean(TransferService.class);
