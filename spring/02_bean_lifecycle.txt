@@ -1,0 +1,63 @@
+ - Spring container has the responsibility of managing the lifecycle of bean from creation till destruction.
+ - In normal Java application, new keyword is used to instatiate a bean for use and then it is garbage collected for destruction.
+ - In Spring Container, lifecycle of a bean is more elaborate.
+
+ 	- Instantiate
+ 	- Populate properties
+ 	- BeanNameAware's setBeanName()
+ 	- BeanFactoryAware's setBeanFactory()
+ 	- ApplicationContextAware's setApplicationContext()
+ 	- Preinitialization BeanPostProcessors
+ 	- Initializing Bean's AfterPropertiesSet()
+ 	- Call Custom init-method
+ 	- PostInitialization BeanPostProcessors
+ 	- .
+ 	- .
+ 	- .
+ 	
+ 	- Bean is ready to use
+ 	- --------------------
+ 	- Container is ShutDown
+
+ 	- Disposable Bean's destroy()
+ 	- Call custom destroy-method()
+
+ 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 	- Instantiate
+ 		- Load all bean definations, creating an orderd graph. 
+ 		- Instantiate each bean.
+
+ 	- Populate properties
+ 		- Spring injects values and bean references into the bean properties.
+
+ 	- BeanNameAware's setBeanName()
+ 		- If any bean implements BeanNameAware interface, Spring passes the bean id into the setBeanName() method.
+
+ 	- BeanFactoryAware's setBeanFactory()
+ 		- If any bean implements BeanFactoryAware interface, Spring passes the reference of the factory itself to the setBeanFactory() method.
+
+ 	- ApplicationContextAware's setApplicationContext()
+ 		- If any bean implements ApplicationContextAware interface, Spring passes the reference of the application context itself to the setApplicationContext() method.
+
+ 	- Preinitialization BeanPostProcessors
+ 		- If any bean implements BeanPostProcessor interface, Spring allows modification of instance of that bean before the initializer is invoked by calling its postProcessBeforeInitialization() method.
+
+ 	- Initialization Bean's AfterPropertiesSet()
+ 		- If any bean implements InitializingBean interface, Spring calls afterPropertiesSet() method to initialize any process or load any resource r your application.
+ 		- It can be acheieved by :
+ 			- init-method of <bean> tag in Xml.
+ 			- initMethod attribute of @Bean annotation
+ 			- JSR 250's @PostConstruct annotation
+
+ 	- PostInitialization BeanPostProcessors
+ 		- If any bean implements BeanPostProcessors interface, Spring allows modification of instance of that bean after the initializer is invoker by calling its postProcessorAfterInitialization() method.
+
+ 	- Bean is ready to use
+ 		- Now, your bean is ready to use and can be accessed by using getBean() method of the application context. Your bean remains live until close() method is called from the application context.
+
+ 	- Disposable Bean's destroy()
+ 		- If any bean implements DisposableBean interface, Spring calls its destroy() method to destroy any process.
+ 		- It can be achieved by:
+ 			- destroy-method of <bean> tag in Xml.
+ 			- destroyMethod attribute of @Bean annotation
+ 			- JSR 250's @PreDestroy annotation
