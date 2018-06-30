@@ -1,0 +1,13 @@
+ - WebApplicationContext extends ApplicationContext which is designed to work with the standard javax.servlet.ServletContext.
+
+ 	public interface WebApplicationContext extends ApplicationContext {
+ 		ServletContext getServletContext();
+ 	}
+
+ - Beans instantiated in WebApplicationContext will also be able to use ServletContext if they implement ServletContextAware interface. 
+
+ 	public interface ServletContextAware extends Aware {
+ 		void setServletContext(ServletContext context);
+ 	}
+
+ - Concrete class of ServletContextAware interface sets ServletContext and concrete class of WebApplicationContext interface allows getting the setted ServletContext.

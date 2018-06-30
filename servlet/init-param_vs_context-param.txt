@@ -1,0 +1,45 @@
+ - <init-param> and <context-param> are static parameters stored in web.xml.
+ - If you have data that does'nt change frequently then you can store it here.
+
+ -Init-Param:
+	 - If you want to store data that is confined to a particular servlet than use <init-param>. 
+	 - <init-param> is declared inside the <servlet> tag.
+	 
+	 	<servlet>
+	 		<display-name>HelloWorldServlet</display-name>
+	 		<servlet-name>HelloWorldServlet</servlet-name>
+	 		<init-param>
+	 			<param-name>Greetings</param-name>
+	 			<param-value>Hello</param-value>
+	 		</init-param>
+	 	</servlet>
+
+	 - and you can access those parameters in servlet as follows:
+
+	 	out.println(getInitParameter("Greetings"));
+
+	 Note: 
+	 	- you can also set and get dynamic attributes in servlet as opposed to static attribute like init-param.
+
+	 	servletContext.setAttribute(" ... ", ...);	
+
+
+ - Context-Param:
+ 	- If you want to store data which is common for the entire application and does'nt change once set then you can use <context-param>.
+ 	- <context-param> is declared under <web-app> tag.
+
+ 		<web-app>
+ 			<context-param>
+ 				<param-name>Country</param-name>
+ 				<param-value>India</param-value>
+ 			</context-param>
+ 			<context-param>
+ 				<param-name>Capital</param-name>
+ 				<param-value>Delhi</param-value>
+ 			</context-param>
+ 		</web-app>
+
+ 	- Usage in the application either in JSP or Servlet:
+
+ 		getServletContext().getInitParameter("Country");
+ 		getServletContext().getInitParameter("Capital");
