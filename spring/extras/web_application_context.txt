@@ -11,3 +11,37 @@
  	}
 
  - Concrete class of ServletContextAware interface sets ServletContext and concrete class of WebApplicationContext interface allows getting the setted ServletContext.
+ - Typically all contexts defined inside the web.xml file in a Servlet Spring application is are Web Application Contexts.
+ - This goes both for root application context and Servlet's application context.
+ - Spring allows you to define beans in multiple hierarchies. If bean is not found in Servlet context then it looks for it in Root context.
+ - Root context allows you to run some singleton services that are common for the entire application such as Spring Security Beans, basic database access services. etc.
+ - Same goes for Servlet context, one will serve web pages and another servlet will provide stateless web services; thus avoiding any name clashes in beans if any.
+ - This 2 level separation comes out of the box when you use Spring Servlet classes.
+ - For root context, use context-param: ( See servlet/init-param_vs_context-param for more details )
+
+ 	<context-param>
+ 		<param-name>contextConfigLocation</param-name>
+ 		<param-value>
+ 			/WEB-INF/root-context.xml
+ 			WEB-INF/appln-security.xml
+ 		</param-value>
+ 	</context-param>
+
+ - It is important to write ContextLoaderListener when using root application context
+
+ 	<listener>
+ 		<listener-class>
+ 			org.springframework.b.servlet.ContextLoaderListener
+ 		</listener-class>
+ 	</listener>
+
+ - For Servlet context, use init-param inside Servlet tags:
+
+ 	<servlet>
+ 		<servlet-name>dispatcher</servlet-name>
+ 		<servlet-class>rg.springframework.web.servlet.DispatcherServlet</servlet-class>
+ 		<init-param>
+ 			<param-name>contextConfigLocation</param-name>
+ 			<param-value>pp-servlet.xml</param-value>
+ 		</init-param>
+ 	</servlet>

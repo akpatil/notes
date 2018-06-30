@@ -1,7 +1,9 @@
  - <init-param> and <context-param> are static parameters stored in web.xml.
  - If you have data that does'nt change frequently then you can store it here.
+ - <init-param> belongs to Servlet whereas; <context-param> belongs to root context.
+ - Each application has only one root context and multiple Servlets under it.
 
- -Init-Param:
+ - Init-Param:
 	 - If you want to store data that is confined to a particular servlet than use <init-param>. 
 	 - <init-param> is declared inside the <servlet> tag.
 	 
