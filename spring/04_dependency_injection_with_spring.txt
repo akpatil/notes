@@ -1,0 +1,152 @@
+ - Spring provides 3 ways for configuring dependency with beans:
+ 	- Dependency Injection Pattern With Java-based configuration
+ 	- Dependency Injection Pattern With Annotation-based configuration
+ 	- Dependency Injection Pattern With Xml-based configuration
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+ - Dependency Injection Pattern With Java-based configuration:
+
+ 		@Configuration
+ 		public class AppConfig {
+ 			@Bean
+ 			public TransferService transferService() {
+ 				return new TransferServiceImpl();
+ 			}
+
+ 			@Bean
+ 			public AccountRepository accountRepository() {
+ 				return new JDBCAccountRepository();
+ 			}
+
+ 			@Bean
+ 			public TransferRepository transferRepository() {
+ 				return new JDBCTransferRepository();
+ 			}
+ 		}
+
+ 	- The beans will be named as transferService, accountRepository & transferRepository.
+ 	To override this default naming behaviour, use name attribute of the @Bean annotation.
+
+ 		@Bean(name="service")
+ 		public TransferService transferService() {
+ 			return new TransferServiceImpl();
+ 		}
+
+ 	- Wiring beans in Java-Based Configuration:
+
+ 		@Configuration
+ 		public AppConfig {
+ 			// Using Constructor Based Injection
+ 			@Bean
+ 			public TransferService transferService() {
+ 				return new TransferServiceImpl(AccountRepository accountRepository(),
+ 													TransferRepository transferRepository());
+			}
+
+			// Using Setter Based Injection
+			@Bean
+			public AccountRepository accountRepository() {
+				return new JDBCAccountRepository();
+			}
+
+			@Bean
+			public TransferRepository transferRepsitory() {
+				return new JDBCTransferRepository();
+			}
+ 		}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+ - Dependency Injection Pattern With Xml-Based Configuration:
+ 	- For Xml based configuration, create applicationContext.xml
+
+ 		<?xml ... ?>
+ 			<beans ...>
+	 			<bean 
+	 				id="transferService"
+	 				class="org.pkg.service.TransferServiceImpl" />
+	 			<bean
+	 				id="accountRepository"
+	 				class="org.pkg.repository.JDBCAccountRepository" />
+	 			<bean
+	 				id="transferRepository"
+	 				class="org.pkg.repository.JDBCTransferRepository" />
+	 		</beans>
+
+ 	- Contructor based injection using <constructor-arg ... /> tag:
+
+	 	<beans>
+	 		<bean
+	 			id="transferService"
+	 			class="org.pkg.service.TransferServiceImpl">
+	 			<constructor-arg ref="accountRepository" />
+	 			<constructor-arg ref="transferRepository" />
+	 		</bean>
+	 		<bean 
+	 			id="accountRepository"
+	 			class="org.pkg.repository.JDBCAccountRepository" />
+	 		<bean 
+	 			id="transferRepository"
+	 			class="org.pkg.repository.JDBCTransferRepository" />
+	 	</beans>
+
+ 	- Constructor based injection using c-namespace tag:
+
+ 		<beans>
+	 		<bean 
+	 			id="transferService"
+	 			class="org.pkg.service.TransferServiceImpl"
+	 			c:accountRepository-ref="accountRepository"
+	 			c:transferRepository-ref="transferRepository" />
+	 		<bean 
+	 			id="accountRepository"
+	 			class="org.pkg.repository.JDBCAccountRepository" />
+	 		<bean 
+	 			id="transferRepository"
+	 			class="org.pkg.repository.JDBCTransferRepository" />
+ 		</beans>
+
+ 	- Setter based injection using <property ... /> tag:
+
+ 		<bean 
+ 			id="transferService"
+ 			class="org.pkg.service.TransferServiceImpl">
+	 			<property name="accountRepository" ref"accountRepository" />
+	 			<property name="transferRepository" ref="transferRepository" />
+	 	</bean>
+	 	<bean 
+	 		id="accountRepository"
+	 		class="org.pkg.repository.JDBCAccountRepository" />
+	 	<bean 
+	 		id="transferRepository"
+	 		class="org.pkg.repository.JDBCTransferRepository" />
+
+	 - Setter based injection using p-namespace:
+
+	 	<bean 
+	 		id="transferService"
+	 		class="org.pkg.service.TransferRepositoryImpl"
+	 		p:accountRepository-ref="accountRepository"
+	 		p:transferRepository-ref="transferRepository" />
+	 	<bean 
+	 		id="accountRepository"
+	 		class="org.pkg.repository.JDBCAccountRepository" />
+	 	<bean 
+	 		id="transferRepository"
+	 		class="org.pkg.repository.JDBCTransferRepository" />
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+ - Dependency Injection Patter Using Annotation-Based Configuration:
+ 	- Spring provides us with special annotations called Stereotype annotations.
+ 	- The main stereotype annotation is @Component.
+ 	- Other annotations provided are:
+ 		- @Service: Used to create beans at Service layer
+ 		- @Repository: Used to create repository beans at DAO layer
+ 		- @Controller: Used to create beans at Controller layer
+ 	- By using these annotations, Spring provides automatic wiring among beans in 2 ways:
+ 		- Component Scanning: In this, Spring searches for bean in the specified directory/ package.
+ 		- Autowiring: In this, Spring automatically searches for bean dependencies in IOC container.
+ 	- In Spring, component scanning is disabled by default.
+ 	- You have to create class with @Configuration and  @ComponentScan annotation.

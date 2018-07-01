@@ -1,0 +1,72 @@
+ - Dependency Injection is a design pattern, which promotes loosely coupled classes in an application.
+ - This means that classes in the system depends on the behaviour of others, rather that instantiation of the object of the classes.
+ - DI also promotes programming to interfaces rather than programming to implementations.
+ - Object dependencies should be on interfaces and not on concrete classes.
+ - There are two types of dependency injections:
+ 	- Constructor Based
+ 	- Setter Based
+
+ - Constructor Based Dependency Injection:
+ 	- This type is more suitable for mandatory dependencies & its makes a strong dependency contract.
+ 	- Disadvantages of This DI type is it may suffer from circular dependency problem.
+
+	 	public class TransferServiceImpl implements TransferService {
+	 		private AccountRepository accountRepository;
+	 		private TransferRepository transferRepository;
+
+	 		public TransferServiceImpl(AccountRepository accountRepository, 
+	 									TransferRepository transferRepository) {
+	 			this.accountRepository = accountRepository;
+	 			this.transferRepository = transferRepository;
+	 		}
+	 	}
+
+	 	public class JDBCAccountRepository implements AccountRepository {
+	 		private JDBCTemplate template;
+
+	 		public JDBCAccountRepository(DataSource ds) {
+	 			this.template = new JDBCTemplate(ds);
+	 		}
+	 	}
+
+	 	public class JDBCTransferRepository implements TransferRepository {
+	 		private JDBCTemplate template;
+
+	 		public JDBCTransferRepository(DataSource ds) {
+	 			this.template = new JDBCTemplate(ds);
+	 		}
+	 	}
+
+ - Setter Based Dependency Injection:
+ 	- Unlike Constructor based DI, Setter Based DI is not mandatory.
+ 	- It solves circular dependency problem.
+ 	- But it provides lesser security as properties can be overriden.
+
+ 		public TransferServiceImpl implements TransferService {
+ 			private AccountRepository accountRepository;
+ 			private TransferRepository transferRepository;
+
+ 			public void setAccountRepository(AccountRepository accountRepository) {
+ 				this.accountRepository = accountRepository;
+ 			}
+
+ 			public void setTransferRepository(TransferRepository transferRepository) {
+ 				this.transferRepository = transferRepository;
+ 			}
+ 		}
+
+ 		public class JDBCAccountRepository implements AccountRepository {
+ 			private JDBCTemplate template;
+
+ 			public JDBCAccountRepository(DataSource ds) {
+ 				this.template = new JDBCTemplate(ds);
+ 			}
+ 		}
+
+ 		public class JDBCTransferRepository implements TransferRepository {
+ 			private JDBCTemplate template;
+
+ 			public JDBCTransferRepository(DataSource ds) {
+ 				this.template = new JDBCTemplate(ds);
+ 			}
+ 		}
