@@ -1,0 +1,42 @@
+@Entity:
+ - Specifies the class to be used for ORM mapping with tables.
+ - Entity has name attribute to specify alternate table name as opposed to class name.
+
+	@Entity (name=" ... ")
+	public class ... {
+
+	}
+
+@Table:
+ - You can also use this annotation to specify alternate table name
+
+ 	@Table (name=" ... ")
+
+@Id:
+ - Specifies primary key column
+
+ 	@Id
+ 	@GeneratedValue(strategy=GenerationType.AUTO)
+
+ 	- AUTO: auto increments
+
+ @Colmun:
+ - Specifies alternate column name for table fields
+ 	
+ 	@Column (name=" ... ")
+
+@Transient:
+ - If a field is going to remain same for all rows you can mark that property as transient and hibernate will ignore it.
+
+ 	@Transient 
+ 	private String username;
+
+@Temporal:
+ - Used to specify type of date to store in db. Like only date, or only time or timestamp
+
+ 	- TemporalType.DATE
+ 	- TemporalType.TIME
+ 	- TemporalType.TIMESTAMP
+
+ 	@Temporal (TemporalType.DATE)
+ 	private Date createdDate;

@@ -1,0 +1,37 @@
+	public class User {
+ 		@Id
+ 		@GenerateValue(starategy=GenerationType.AUTO)
+ 		private Integer userId;
+ 		private String userName;
+ 		private String password;
+		@ElementCollection
+	 	@JoinTable (name="User_Address",
+	 				joinColumns=@JoinColumn(name="User_id"))
+	 	private Set<Address> listOfAddresses = new HashSet<>();
+	 }
+
+ Lazy Loading:
+ - By default, hibernate loads data lazily using proxy class.
+ - in the above example, when we do session.get() it returns data in proxy class for only 1 level.
+ - for second level value like listOfAddresses, it doesnt fetch value because it belongs to 2nd level.
+ - when we run user.getListofAddresses(), it executes another query to fetch data for addresses.
+ - this can proved as follows:
+
+ 	User user = (User) session.get(user, 1); // fetches user with primary key 1
+ 	session.close();
+ 	user.getListofAddresses(); // throws lazy loading exception becoz session was closed
+
+ Eager Loading:
+ - To set hibernate to eager loading, we have a property in @ElementCollection annotation (fetch=FetchType.EAGER):
+
+	public class User {
+ 		@Id
+ 		@GenerateValue(starategy=GenerationType.AUTO)
+ 		private Integer userId;
+ 		private String userName;
+ 		private String password;
+		@ElementCollection (fetch=FetchType.EAGER)
+	 	@JoinTable (name="User_Address",
+	 				joinColumns=@JoinColumn(name="User_id"))
+	 	private Set<Address> listOfAddresses = new HashSet<>();
+	 }

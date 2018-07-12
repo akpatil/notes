@@ -1,0 +1,54 @@
+ - We can implement inheritance using hibernate. In Single Table Strategy, all subclass and main class data is persisted into one table.
+
+ 	public class Vehicle {
+ 		private Integer vehicleId;
+ 		private String vehicleName;
+ 	}
+
+ 	public class TwoWheeler extends Vehicle {
+ 		private String steeringHandle;
+ 	}
+
+ 	public class FourWheeler extends Vehicle {
+ 		private String steeringWheel;
+ 	}
+
+ - When we create objects and push it in user vehicle collection, and save it; it merges columns from all the classes and creates a single table.
+ - Along will all the columns, its creates an additional data discriminator column to differenciate between the source of the objects.
+ - We can achieve this also by using @Inheritence annotation. 
+
+ 	@Entity
+ 	@Inheritance (strategy=InheritanceType.SINGLE_TABLE)
+ 	public class Vehicle {
+ 		...
+ 	}
+
+ 	table struct:
+ 	- dtype // stores whether data is from Vehicle, TwoWheeler or FourWheeler class
+ 	- vehicleId
+ 	- vehicleName
+ 	- steeringHandle
+ 	- steeringWheel
+
+ - We can also rename the descriminator column using @DiscriminatorColumn annotation.
+
+ 	@Entity
+ 	@Inheritance (strategy=InheritanceType.SINGLE_TABLE)
+ 	@DiscriminatorColumn (name="Vehicle_Type", discriminatorType=DiscriminatorType.String)
+ 	public class Vehicle {
+ 		...
+ 	}
+
+ - We can do the same, with sub classes. By default the discriminator value stored in class name we can change it using @DiscrimintaorValue annotation.
+
+ 		@Entity
+ 		@DiscriminatorValue("Bike")
+ 		public class TwoWheeler extends Vehicle {
+	 		private String steeringHandle;
+	 	}
+
+ 		@Entity
+ 		@DiscriminatorValue("Car")
+	 	public class FourWheeler extends Vehicle {
+	 		private String steeringWheel;
+	 	}

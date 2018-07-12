@@ -1,0 +1,8 @@
+ Transient Object:
+ - Those objects that are mapped to hibernate but are never saved. Objects remain to be transient till session.save() is called.
+
+ Persistent Object:
+ - Those objects that are saved are called as persistent objects. Any changes made to those objects after calling session.save() gets persisted to database even if save() method is not called over it again until session is closed.
+
+ Detached Object:
+ - Objects that were once saved but are accessed outside of the session i.e. after calling session.close() then such objects are called as detached objects. Any changes to this objects wont get persisted to databse as opposed to persistent objects.

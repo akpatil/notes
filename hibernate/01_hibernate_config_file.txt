@@ -1,0 +1,31 @@
+<hibernate-configuration>
+	<session-factory>
+
+	/* Database connection setting */
+	<property name="connection.driver_class">org.Mysql.Driver</property>
+	<property name="connection.url">jdbc:mysql://localhost:3306/dbnamme</property>
+	<property name="connection.username">username</property>
+	<property name="connection.password">password</property>
+
+	/* DBC connection pool */
+	<property name="connection.pool_size">1</property>
+
+	/* SQL Dialect */
+	/* Specifies type of queries hibernate should build during execution: eg: mysql, postgresql */
+	<property name="dialect">org.hibernate.dialect.MysqlDialect</property>
+
+	/* Disable second level cache */
+	<property name="cache.provider_class">org.hibernate.class.NoCacheProvider</property>
+
+	/* Echo all executed SQL queries created by hibernate */
+	<property name="show_sql">true</property>
+
+	/* create - creates new tables in mysql automatically */
+	/* update - drops and creates existing tables if exist automatically */
+	<property name="hbm2ddl.auto">create</property>
+
+	/* hibernate mapping class */
+	<mapping class="org.pkg.classname" />
+
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,54 @@
+ - As we have seen in one to many mapping, we save two objects data. 
+ - One is the parent class object and other is the child class object.
+
+ 	@Entity
+ 	public class User {
+ 		private Integer userId;
+ 		private String username;
+ 		@OneToMany
+ 		private Collection<Vehicle> vehicles = new ArrayList<>();
+ 	}
+
+ 	@Entity
+ 	public class Vehicle {
+ 		private Integer VehicleId;
+ 		private String vehicleName;
+ 	}
+
+ 	User user = ...
+ 	.
+ 	.
+ 	Vehicle veh1 = ...
+ 	Vehicle veh2 = ...
+
+ 	user.getVehicles().add(veh1);
+ 	user.getVehicles().add(veh2);
+
+ 	session.beginTransaction();
+ 	session.save(user);
+ 	session.save(veh1);
+ 	session.save(veh2);
+
+ - In this scenario, it will work just fine, but what happens when we save user and we dont persist vehicles in the database.
+ - It throws an exception saying, user table referencing transient objects that are not persisted.
+ - Thats when cascading persist comes into picture.
+ - Cascading allows saving child objects automatically if the parent was persisted but the child object was not persisted.
+ - We had a property to @OneToMany annotation called cascade.
+
+ 	@Entity
+ 	public class User {
+ 		private Integer userId;
+ 		private String username;
+ 		@OneToMany (cascade=CascadeType.PERSIST)
+ 		private Collection<Vehicle> vehicles = new ArrayList<>();
+ 	}
+
+ - This will only work if we persist objects in database using persist() function instead of save().
+
+ 	session.beginTransaction();
+ 	session.persist(user);
+
+ - Calling this, will automatically persist vehicles along with the user, if vehicles are not persisted/ saved into the database.
+
+ - Similarly, we have other cascade types, one of them being CascadeType.REMOVE, if removes child dependencies if a parent dependency is removed.
+ - We also have CascadeType.ALL, which covers all types instead of specifying one by one.

@@ -1,0 +1,29 @@
+ - First Level Cache:
+ 	- Caches data at session level.
+ 	- If we do select statement twice, hibernate hits database only once. It fetches the data from the cache if the session in not closed.
+ 	- If the session is closed and we do get() again then it hits database as we closed the previous session and destroyed the previous cache and created a new cache for the new session.
+ 	- This cache is enabled by default and hibernate does it automatically.
+
+ - Second Level Cache:
+ 	- EhLevel Cache:
+
+ 		hibernate.cfg.xml:
+
+ 		...
+ 		<property name="cache.use_second_level_cache">true</property>
+ 		<property name="cache.provider_class">org.hibernate.cache.EhCacheProvider</provider>
+
+ 	- By default, hibernate doesnt cache all entities in second level. You have to explicity specify which entities to cache over each entities.
+
+ 		@Entity
+ 		@Cacheable
+ 		@Cache (usage=CacheConcurrencyStrategy.READ_ONLY)
+ 		public class User {
+ 			...
+ 		}
+
+ 		READ_ONLY
+ 		READ_WRITE
+ 		TRANSACTIONAL
+
+ 	- Second level cache allows accessing cached objects in other session thus overcomming the posibilities of first level cache.

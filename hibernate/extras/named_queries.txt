@@ -1,0 +1,22 @@
+ - Hibernate allows having named queries to save writing basic select queries at compile time.
+
+ 	@Entity
+ 	@NamedQuery (name="User.byId", query="From User Where UserId = ?")
+ 	@Table (name="User_Details")
+ 	public class User {
+ 		...
+ 	}
+
+ 	////////////////////////////////////
+
+ 	public static void main(String[] args) {
+ 		....
+ 		....
+ 		Integer id = 0;
+ 		Query query = session.getNamedQuery(User.byId);
+ 		query.setInteger(0, id);
+ 	}
+
+ - You can also write native Sql queries using:
+
+ 	@NamedNativeQuery ("SELECT * FROM User_Details WHERE userid = ? ");

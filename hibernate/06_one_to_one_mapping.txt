@@ -1,0 +1,32 @@
+ - One To One mapping allows addition of an additional column in the main parent table just like @Embedded/@Embeddable annotation except for the rest of the columns are added in a separate table.
+ - It maintains a reference of primary key in the parent table.
+
+ 	public class User {
+ 		@Id
+ 		@GeneratedValue(strategy=GenerationType.AUTO)
+ 		private Integer userid;
+ 		private String username;
+
+ 		@OneToOne
+ 		private Vehicle vehicle;
+ 	}
+
+ 	public class Vehicle {
+ 		private Integer vehicleId;
+ 		private String vehicleName;
+ 	}
+
+ 	User Table:
+ 	- userid
+ 	- username
+ 	- user_vehicle_id
+
+ 	Vehicle Table:
+ 	- vehicleId
+ 	- vehicleName
+
+ - To rename mapping column use @JoinTable annotation
+
+ 	@OneToOne
+ 	@JoinTable (joincolumns=@JoinColumn(name="vehicle_id"))
+ 	private Vehicle vehicle;

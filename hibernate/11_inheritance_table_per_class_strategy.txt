@@ -1,0 +1,22 @@
+ - Everything is same just as single table strategy only difference being it creates different tables per entity instead of merging everything into one.
+ - Discriminator annotations are not needed as data is stored in separate tables.
+
+ 	@Inheritance (strategy=InheritanceType.TABLE_PER_CLASS)
+
+ 	Table struct:
+
+ 	Vehicle:
+ 	- VehicleId
+ 	- VehicleName
+
+ 	TwoWheeler:
+ 	- VehicleId
+ 	- VehicleName
+ 	-SteeringHandle
+
+ 	FourWheeler:
+ 	- VehicleId
+ 	- VehicleName
+ 	-SteeringWheel
+
+ - Do note that this type of strategy allows you to create separate tables but it repeats parent column in child tables.

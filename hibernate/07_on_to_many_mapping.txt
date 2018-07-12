@@ -1,0 +1,62 @@
+ - Just like one to one, this type lets you save multiple vehicles against a user but it creates a separate table for mapping instead of adding a mapping column in the parent table.
+
+ 	public class User {
+ 		@Id
+ 		@GeneratedValue(strategy=GenerationType.AUTO)
+ 		private Integer userid;
+ 		private String username;
+
+ 		@OneToMany
+ 		private Collection<Vehicle> vehicle = new ArrayList<>();
+ 	}
+
+ 	public class Vehicle {
+ 		private Integer vehicleId;
+ 		private String vehicleName;
+ 	}
+
+ 	User Table:
+ 	- userid
+ 	- username
+
+ 	Vehicle Table:
+ 	- vehicleId
+ 	- vehicleName
+
+ 	User_Vehicle:
+ 	- userid
+ 	- vehicleId
+
+ - To rename the mapping table, make use of @JoinTable annotation.
+
+ 	@OneToMany
+ 	@JoinTable (name="User_vehicle_mapping",
+ 				joinColumns=@JoinColumn(name="User_Id"),
+ 				inverseJoinColumns=@JoinColumn(name="Vehicle_Id"))
+ 	private Collection<Vehicle> vehicle = new ArrayList<>();
+
+
+ Mapped By:
+ - One drawback of this approach is that it creates unnecssary mapping table when we could have created an additional column in Vehicle table to store user id to satisfy one to many mapping.
+ - Just like we used @OneToMany in parent table, we can also use @ManyToOne in child table.
+ - This is important so as to map user id in child table properly so that hibernate knows.
+ - This establishes a link between User (parent) table and Vehicle (Child) table.
+
+ 	User Class:
+
+ 	public class User {
+ 		.
+ 		.
+ 		@OneToMany (mappedBy="user") // maps to user property in vehicle class
+ 		private Collection<Vehicle> vehicles = new ArrayList<>();
+ 	}
+
+ 	Vehicle Class:
+
+ 	public class Vehicle {
+ 		.
+ 		.
+ 		@ManyToOne // this annotation tells hibernate that this column refers parent column
+ 		@JoinColumn (name="User_Id") // specifies the name of the mapping column
+ 		private User user;
+ 	}

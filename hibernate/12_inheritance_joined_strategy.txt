@@ -1,0 +1,17 @@
+ - As we saw, strategy table per class repeats parent table columns in child table. Using this strategy doesnt repeat it.
+ - It keeps data from child table in child only and nothing else of parent is present in child table.
+ - where are parent table maintains child table id for linking.
+
+ 	@Inheritance (strategy=InheritanceType.JOINED)
+
+ 	Table struct:
+
+ 	Vehicle:
+ 	- VehicleId
+ 	- VehicleName
+
+ 	TwoWheeler:
+ 	-SteeringHandle
+
+ 	FourWheeler:
+ 	-SteeringWheel

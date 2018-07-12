@@ -1,0 +1,13 @@
+ - Persisting data to database using hibernate goes through 3 phases. 
+ 	Transient
+ 	Persistent
+ 	Detached Object
+ - Once an object becomes detached, in order to make it persistent again and to save changes automatically to database we need to supply session.update() command.
+ - But at times doing so may lead to loss of data as hibernate doesnt check for previous value before doing update.
+ - To enforce hibernate to make select before update, we use a native hibernate Entity annotation
+
+ 	@Entity // standard JPA annotation
+ 	@org.hibernate.annotations.Entity (selectBeforeUpdate=true) // native hibernate annotation
+ 	public class User {
+ 		...
+ 	}

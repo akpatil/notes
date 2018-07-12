@@ -1,0 +1,53 @@
+ - instead of embedding objects in a table, we can also create a separate table to store such details like multiple addresses using @ElementCollection attribute
+
+ 	public class User {
+ 		@Id
+ 		@GenerateValue(starategy=GenerationType.AUTO)
+ 		private Integer userId;
+ 		private String userName;
+ 		private String password;
+ 		@ElementCollection
+ 		private Set<Address> listOfAddresses = new HashSet<>();
+ 	}
+
+ 	public class Address {
+ 		private String street;
+ 		private String city;
+ 		private String pincode;
+ 	}
+
+ 	table structure created:
+ 	- user_userid
+ 	- street
+ 	- city
+ 	-pincode
+
+ - now when we add Address objects in the Set and save it, it will create a new table with name User_listOfAddresses with foreign key as userId.
+ - Such tables are called as Join Tables in hibernate. It comes with an additional optional annotation @JoinTable.
+ - As seen above the join table name "User_listofAddresses" is ugly, we can rename it using this annotation.
+
+ 	@ElementCollection
+ 	@JoinTable (name="User_Address")
+ 	private Set<Address> listOfAddresses = new HashSet<>();
+
+ - To rename the primary key reference in the new table we can use:
+
+	@ElementCollection
+ 	@JoinTable (name="User_Address",
+ 				joinColumns=@JoinColumn(name="User_id"))
+ 	private Set<Address> listOfAddresses = new HashSet<>();
+
+ - Only drawback to this method being if we want to index our records its, impossible to do so as Set dont support indexing. To resolve this problem we will use java collections interface to use structures that allow indexing like an ArrayList.
+ - We use @CollectionId to specify how to generate primary key while using Collections. Do note that this a feature of hibernate and not JPA and is only restricted to hibernate only.
+
+ 	@ElementCollection
+ 	@JoinTable (name="User_Address",
+ 				joinColumns=@JoinColumn(name="User_id"))
+ 	@GenericGenerator (name="hilo-gen", strategy="hilo")
+ 	@CollectionId (column={ @Column(name="Address_id") }, generator="hilo-gen, type={ @Type="long" })
+ 	private Collection<Address> listOfAddresses = new ArrayList<>();
+
+ - To generate a primary key, we specify the column name as Address_Id
+ - We use @GenericGenerator to specify the method/ technique to generate a primary key; in this case "hilo"
+ - We specify the data type of the key as long.
+ - We do all this to generate a primary key if we dont specify a property in class as primary key and we want to generate it at runtime.

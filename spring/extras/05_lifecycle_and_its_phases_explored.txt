@@ -1,0 +1,46 @@
+ - Spring lifecycle is braodly classified into 3 phases:
+ 	- The initialization phase
+ 	- The Use phase
+ 	- The Destruction phase
+
+ - The Initialization Phase:
+ 	- Here Spring loads all configuration files of any style like XML, annotation or configuration files.
+ 	- This phase prepares beans for use. The application is not usable until this phase is completed.
+ 	- Spting provides ApplicationContext to load all bean configurations.
+ 	- Once context is created, the initialization phase completes.
+ 	- Initialization phase is split into 2:
+ 		- Load bean definations
+ 		- Initialize bean instances
+
+ 		- Load All Bean Definations:
+ 			- As soon as bean definations are loaded from configuration files, Spring invokes BeanFactoryPostProcessor to resolve run time dependencies such as reading values from external property files.
+ 			- BeanFactoryPostProcessor actually works on the bean definations or bean configuration meta data before the beans are actually created.
+ 			- Spring provides several usecases for BeanFactoryPostProcessor such as reading an property file or registering a custom scope.
+
+ 			- Reading external property files:
+
+ 				database.properties:
+ 					jdbc.driver=org.hsqldb.dbcDriver
+ 					jdbc.url=jdbc:hsqldb:hsql://production:9002
+ 					jdbc.username=icy
+ 					jdbc.password=icy@icy
+
+ 				DataSource config file:
+ 					@Configuration
+ 					@PropertySource("classpath:/config/database.properties")
+ 					public class AppConfig {
+ 						@Bean
+ 						public DataSource dataSource(
+ 							@Value("${jdbc.driver}") String driver,
+ 							@Value("${jdbc.url}") String url,
+ 							@Value("${jdbc.username}") String username,
+ 							@Value("${jdbc.password}") String password
+ 						) {
+ 							DataSource ds = new BasicDataSource();
+ 							ds.setDriverClassName(driver);
+ 							ds.setUrl(url);
+ 							ds.setUsername(username);
+ 							ds.setPassword(password);
+ 							return ds;
+ 						}
+ 					}

@@ -1,0 +1,40 @@
+Singular embedding:
+
+public class User {
+	private String userName;
+	private String password;
+	@Embedded
+	private Address address;
+}
+
+@Embeddable
+public class Address {
+	private String street;
+	private Sting city;
+	private String pincode;
+}
+
+ - Allows isolation of components as seperate but all together form a single record in the dababase.
+
+
+Multiple Embedding:
+- We use @AttributeOverride annotation to specify different column names with same structure multiple times. For example homeAddress and officeAddress both use same structures but map to different columns in database.
+
+public class User {
+	private String userName;
+	private String password;
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="street", column=@Column(name="home_street")),
+		@AttributeOverride(name="city", column=@Column(name="home_city")),
+		@AttributeOverride(name="picode", column=@Column(name="home_pincode"))
+	})
+	private Address homeAddress;
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="street", column=@Column(name="office_street")),
+		@AttributeOverride(name="city", column=@Column(name="office_city")),
+		@AttributeOverride(name="picode", column=@Column(name="office_pincode"))
+	})
+	private Address officeAddress;
+}

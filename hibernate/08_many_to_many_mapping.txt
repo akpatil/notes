@@ -1,0 +1,45 @@
+ - Just like one to many, we can have many to many mapping.
+
+ 	public class User {
+ 		@Id @GeneratedValue(strategy=GenerationType.AUTO)
+ 		private Integer userId;
+ 		private String username;
+ 		private 
+ 		@ManyToMany
+ 		private Collection<Vehicle> vehicles = new ArrayList<>();
+ 	}
+
+ 	public class Vehicle {
+ 		@Id @GeneratedValue(strategy=GenerationType.AUTO)
+ 		private Integer vehicleId;
+ 		private Stirng vehicleName;
+ 		@ManyToMany
+ 		private Collection<User> users = new ArrayList<>();
+ 	}
+
+ - When we run this, hibernate will create 4 tables.
+
+ 	User:
+ 	- userId
+ 	- username
+
+ 	Vehicle:
+ 	- vehicleId
+ 	- vehicleName
+
+ 	User_Vehicle:
+ 	- userId
+ 	- VehicleId
+
+ 	Vehicle_User:
+ 	- vehicleId
+ 	- userId
+
+ - The reason hibernate creates 2 mapping tables is because it is unaware of the presence of the other. It just reads @ManyToMany in each class and creates mapping table for it.
+
+ 	public class Vehicle {
+ 		.
+ 		.
+ 		@ManyToMany (mappedBy="vehicles") // vehicles property from User class
+ 		private Collection<User> users = new ArrayList<>();
+ 	}

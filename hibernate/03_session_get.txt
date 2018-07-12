@@ -1,0 +1,5 @@
+session.get():
+ - fetches record from the db.
+ - 1st parameter: ORM class name and second parameter primary key.
+
+ 	User user = (User) session.get(User.class, 1);

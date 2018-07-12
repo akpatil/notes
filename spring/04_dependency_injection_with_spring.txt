@@ -150,3 +150,115 @@
  		- Autowiring: In this, Spring automatically searches for bean dependencies in IOC container.
  	- In Spring, component scanning is disabled by default.
  	- You have to create class with @Configuration and  @ComponentScan annotation.
+
+ 	@ComponentScan:
+ 		- By default, @ComponentScan looks up for @Component annotation in the same package in which the configuration file is defined.
+
+ 			@Configuration
+ 			@ComponentScan
+ 			public class AppConfig {
+ 				...
+ 			}
+
+ 		- To specify specific package to scan in the application:
+
+ 			@Configuration
+ 			@ComponentScan("org.pkg.configuration.transferApp")
+ 			public class AppConfig {
+ 				...
+ 			}
+
+ 		- To specify multiple packages to scan in the application:
+
+ 			@Configuration
+ 			@ComponentScan(basePackages={"org.pkg.configuration.transferApp", "org.pkg.config.secondaryApp"})
+ 			public class AppConfig {
+ 				...
+ 			}
+
+ 		- You can also scan based on class name & interfaces:
+
+ 			@Configuration
+ 			@ComponentScan(basePackageClasses={TransferService.class, AccountRepository.class})
+ 			public class AppConfig {
+ 				...
+ 			}
+
+ 		- You can also specify component scan using Xml configuration:
+
+ 			<?xml ... ?>
+ 			<beans ... >
+ 				<context:component-scan
+ 							base-package="org.pkg.config.TransferApp" />
+ 			</beans>
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ - Annotating Beans For Autowiring:
+ 	- @Autowired annotation indicates that when autowiring should be performed for this bean.
+ 	- In the below example, if TransferServiceImpl is autowired, then its constructor dependencies should be automatically injected.
+
+ 		public class TransferServiceImpl implements TransferService {
+ 			private AccountRepository accountRepository;
+ 			private TransferRepository transferRepository;
+
+ 			// constructor based autowiring
+ 			@Autowired
+ 			public TransferServiceImpl(AccountRepository accountRepository,
+ 										TransferRepository transferRepository) {
+ 				this.accountRepository = accountRepository;
+ 				this.transferRepository = transferRepository;
+			}
+ 		}
+
+ 		// setter based autowiring
+ 		@Autowired
+ 		public void setAccountRepository(AccountRepository accountRepository) {
+ 			this.accountRepository = accountRepository;
+ 		}
+
+ 		// field based autowiring
+ 		@Autowired
+ 		public AccountRepository accountRepository;
+
+ - Ambuiguity problem faced during autowired injection:
+
+ 		@Service
+ 		public class TransferServiceImpl implements TransferService {
+ 			@Autowired
+ 			public TransferServiceImpl(AccountRepository accountRepository) {
+ 				...
+ 			}
+ 		}
+
+ 		@Repository
+ 		public class JDBCAccountRepository implements AccountRepository {
+ 			...
+ 		}
+
+ 		@Repository
+ 		public class JPAAccountRepository implements AccountRepository {
+ 			...
+ 		}
+
+ 		// throws NoSuchBeanDefinationException: no unique bean of type AccountRepository. Expected single but found 2 
+
+ 	- This ambuiguity can be resolved by using @Qualifier annotation
+
+ 		@Service
+ 		public class TransferServiceImpl implements TransferService {
+ 			@Autowired
+ 			public TransferServiceImpl( ( @Qualifier("jdbcAccountRepository") ) AccountRepository accountRepository) {
+ 				...
+ 			}
+ 		}
+
+ 		@Repository("jdbcAccountRepository")
+ 		public class JDBCAccountRepository implements AccountRepository {
+ 			...
+ 		}
+
+ 		@Repository("jpaAccountRepository")
+ 		public class JPAAccountRepository implements AccountRepository {
+ 			...
+ 		}
