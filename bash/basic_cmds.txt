@@ -1,0 +1,60 @@
+ - cat filename.txt
+ 	// Prints data from file onto console
+
+ - less filename.txt
+ 	// Opens a restricted sandboxed console view, same as cat but with only data from this file
+ 	(-n: this flag outputs the line number along with the content)
+
+ 	- (press shit + g)
+ 		// takes you to the top of the console view
+ 	- (press g)
+ 		// takes you to the bottom of the console view
+
+ - open filename.txt
+ 	// Opens file in the default text editor
+
+ - open filename.txt -a vim
+ 	// Opens file in the text editor mentioned
+
+ - touch filename.txt
+ 	// creates a new file
+
+ - echo 'hi'
+ 	// outputs echoed data onto the console
+
+ - echo 'hi' > filename.txt
+ 	// puts echoed data into the file (overwrites data in the file)
+
+ - echo 'hi' >> filename.txt
+ 	// appends echoed data in the file
+
+- mv filename.txt /lib
+	// moves file
+
+- mv filename.txt file.txt
+	// moves existing file into the same directory with a different name
+		(used to rename file or folders)
+
+- find -name "*.png"
+	// finds all files with matching names
+		(-name: matches name with exact keyword; -iname: matches name with case insensitive keyword )
+
+- find -type d
+	// finds all the folders
+
+- find -type d -name "*sample"
+	// matches all file names in pwd with the given keyword
+		(-delete: to delete all the matched findings)
+
+- -exec 
+	// this flag when appended executes any executable file or a program
+		(can be used with command chaining like find to execute found files)
+
+- grep "keyword_to_be_searched" filename.txt
+	// searches for the mentioned keyword in the file mentioned
+		(--color: this flag colors the matched keyword in the line returned)
+		(-n: this flag outputs the line number along with the content)
+		(-C n: where n is the number of lines; context shows us lines of code around the matched keyword)
+
+- chmod u+x filename.txt 
+	// Give the (u) user, executable (e) permissions
