@@ -58,3 +58,29 @@
 
 - chmod u+x filename.txt 
 	// Give the (u) user, executable (e) permissions
+
+Variables in bash:
+- greetings="test quote"
+- echo $greetings
+
+You can also substitute values from arguments or others using $()
+- greet() {
+	echo "hello world"
+}
+- greetings=$(greet)
+- echo "$greetings"
+
+if you declare variables globally in the terminal, you can make it accessible inside of the scripts by exporting your global variables as follows:
+- export <variable_name>
+
+Using pipes in terminal to funnel data from one command into another for further processing:
+
+- ps ax
+	// outputs all processes running at the moment
+	// we can pipe it inside grep using "|"
+
+- ps ax | grep Chrome
+	// pipes Chrome processes running
+	// we can further pipe it into less command for restricted processing
+
+- ps ax | grep Chrome | less
