@@ -1,0 +1,9 @@
+ - console.log(typeof 5): "number"
+ - console.log(typeof 5.5): "number"
+ - console.log(typeof 'text'): "string"
+ - console.log(typeof null): "object"
+ - console.log(typeof undefined): "undefined"
+ - console.log(typeof NaN): "number" // Not a Number
+
+ - console.log(null == undefined): "true" // empty equals empty
+ - console.log(null === undefined): "false" // object not equals to undefined
