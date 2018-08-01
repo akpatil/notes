@@ -1,0 +1,10 @@
+ - javascript allows you to write scripts without using line termination symbol ";" semi-colon.
+ - it also allows you to declare variables without using "var" keyword by escalating the variable declared to the global scope.
+ - now this is generally considered a bad practice as it polutes global scope and lack of semi-colons makes the code less verbose and unreadable.
+
+ 	variable1 = 5 // no semi-colons and no var declaration
+ 	console.log(variable1)
+
+ - to prevent such bad coding practices, javascript allows us to enable strict mode while writing scripts to throw error.
+
+ 	"use strict"

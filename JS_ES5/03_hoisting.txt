@@ -1,0 +1,7 @@
+ - In javascript, you can initialize the variables before they have been declared and it still would be considered as valid.
+
+ 	 - variable1 = 5;
+ 	 - console.log(variable1);
+ 	 - var variable1;
+
+ - It allows this behaviour because javascript internally first fetches all the declarations and stacks it onto the top followed by the rest of the instructions.
