@@ -1,0 +1,10 @@
+CREATE TABLE course (
+	id int(11) NOT null AUTO_INCREMENT,
+    title varchar(128) DEFAULT null,
+    instructor_id int(11) DEFAULT null,
+    PRIMARY KEY (id),
+    UNIQUE KEY TITLE_UNIQUE (title),
+    KEY FK_INSTRUCTOR_idx (instructor_id),
+    CONSTRAINT FK_INSTRUCTOR FOREIGN KEY (instructor_id) REFERENCES instructor (id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT charset=latin1;
