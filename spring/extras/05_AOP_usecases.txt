@@ -1,0 +1,12 @@
+- Most Common
+	logging, security, transactions.
+
+- Audit Logging
+	who, what, when, where.
+
+- Exception Handling
+	logging exceptions and notifying dev/ ops team via email, SMS.
+
+- API Management
+	how many times has an method been called by a User.
+	What are the peek times, average load? Who are the top visitors?

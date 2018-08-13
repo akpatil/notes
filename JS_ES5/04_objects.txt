@@ -1,0 +1,36 @@
+ var person = {
+ 	name: 'Max',
+ 	age: 27
+ };
+
+ var anotherPerson = new Object();
+ anotherPerson.name = 'Max';
+ anotherPerson.age = 27;
+
+ var yetAnotherPerson = Object.create(person);
+ console.log(yetAnotherPerson.age); // 27
+
+ - Object.create() is a static method and is mainly used for prototyping.
+ - Each objects have a different mem pointer and therefore can never be equal to each other.
+
+ var person = {
+ 	name: 'Max',
+ 	age: 27,
+ 	greet: function() {
+ 		console.log("Hi am " + name);
+ 	}
+ };
+
+ person.greet(); // hi am 
+
+///////////////////////////////////////////
+
+  var person = {
+ 	name: 'Max',
+ 	age: 27,
+ 	greet: function() {
+ 		console.log("Hi am " + this.name);
+ 	}
+ };
+
+  person.greet(); // hi am Max

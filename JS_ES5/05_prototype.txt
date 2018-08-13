@@ -1,0 +1,38 @@
+ - Object.prototype is at the root of all objects. Just like inheritance in java.
+
+ var person = {
+ 	name: 'Akshay',
+ 	age: 27
+ };
+
+ Object.prototype.greet = function() {
+ 	console.log('Hello there!' + this.name);
+ };
+
+ - console.log(person.greet()); // Hello there! Akshay
+
+ - greet function is automatically inherited by all objects as we added it to root "Object.prototype".
+ - you can make an object a prototype by using Object.create();
+
+ var anotherPerson = Object.create(person);
+ anotherPerson.name = 'Max';
+ console.log(anotherPerson.name); // Max
+ console.log(anotherPerson.greet()); // Hello there! Max
+
+ - when calling for name from anotherPerson, it escalated the call to root as it did'nt find the property in its own object, and we creted person as a prototype for anotherPerson.
+
+ 	Object.prototype // top level
+ 	|
+ 	Person // next level (creted prototype for anotherPerson using Object.create())
+ 	|
+ 	anotherPerson // bottom level
+ 
+ - Important behaviour of prototypes, is that the "this" value will always refer the the properties in the actual object and not the escalated objects or prototypes as in the above case wih property "name". If the property name is not found then it gets escalated.
+
+ object.__proto__ // gives you the information about prototypes.
+
+ console.log(anotherPerson.__proto__ == person); // true
+ console.log(anotherPerson.__proto__.__proto__ == Obejct.prototype); //true
+
+ Alternative way:
+ console.log(Object.getPrototypeOf(anotherPerson) == person); // true
