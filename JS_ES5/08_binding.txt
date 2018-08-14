@@ -1,0 +1,53 @@
+ function fn() {
+ 	console.log(this);
+ }
+
+ fn();
+
+ - here this refers to window object, and prints out Object for window in the console.
+
+ ////////////////////////////////////////////////////////////////////////////////////
+
+ function fn() {
+ 	console.log(this);
+ }
+
+ var obj = {
+ 	ojbFn: fn
+ }
+
+ obj.objFn()
+
+ - here this refers to Object obj, as it gets encapsulated inside an object.
+
+ ////////////////////////////////////////////////////////////////////////////////////
+
+ function fn() {
+ 	console.log(this);
+ }
+
+ var obj = {
+ 	ojbFn: fn
+ }
+
+ obj.objFn.bind(this)();
+
+ here we bind our this reference from fn, to the window level this
+
+ ////////////////////////////////////////////////////////////////////////////////////
+
+ function fn() {
+ 	console.log(this);
+ }
+
+ var obj = {
+ 	ojbFn: fn
+ }
+
+ var person = {
+ 	name: 'Max'
+ }
+
+ obj.objFn.bind(person)(); // { name: 'Max' }
+
+ here we bind our this reference from fn, to the peson object
