@@ -1,0 +1,24 @@
+ var person = {
+ 	name: 'Max',
+ 	age: 27
+ };
+
+ ////////////////////////////////////////////////////////////////////////
+ 
+ var person = new Object();
+ person.name = 'Max';
+ person.age = 27;
+
+////////////////////////////////////////////////////////////////////////
+
+ var person = Object.create(null); // no default prototype specified
+ person.name = 'Max';
+ person.age = 27;
+
+////////////////////////////////////////////////////////////////////////
+
+ function Person() {
+ 	this.name = 'Max';
+ 	this.age = 27;
+ }
+ var person = new Person();

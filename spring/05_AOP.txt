@@ -1,0 +1,29 @@
+ - Aspect
+ 	module of code for cross-cutting concerns
+
+ - Advice
+ 	what action is taken & when it should be applied
+
+ 		Before Advice - run before the method
+ 		After finally advice - run after the method (finally)
+ 		After returning advice - run after the method
+ 		After throwing advice - run after throwing exception
+ 		Around advice - run before and after the method
+
+ - Joint Point
+ 	when to apply code during program execution
+
+ - pointcut
+ 	a predicate expression for where advice should be applied
+
+ - 2 types of AOP:
+ 	Spring AOP
+ 	AspectJ
+
+ - Spring AOP
+ 	Method level join points 
+ 	Run-time code weaving (slower than AspectJ)
+
+ - AspectJ
+ 	join points - Method level, constructor, field
+ 	weaving - compile time, post compile time, load time 

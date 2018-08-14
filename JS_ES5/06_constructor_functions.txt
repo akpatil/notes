@@ -1,0 +1,28 @@
+ function Person() {
+ 	this.name='Anna';
+ 	this.greet = function() {
+ 		console.log('Hello, I am ' + this.name);
+ 	}
+
+ } // Blueprint just like classes in Java. can have properties inside it for default value. Constructor funcs.
+
+ Person.prototype.greet = function() {
+ 	console.log("Hello there!");
+ }
+
+ var person = new Person(); // new Object created of type Person
+ person.name = 'Max' // prints Max, if not specified then prints Anna
+ person.greet(); // prints "Hello, I am Max". else prints "Hello, I am Anna". If default not specified, then "Hello there!"
+
+ console.log(person.__proto__ == Person.prototype);
+ console.log(person instanceof Person); // true
+
+ ///////////////////////////////////////////////////////////////////////////////
+
+ function Person(name, age) {
+ 	this.name = name;
+ 	this.age = age;
+ }
+
+ var max = new Person('Max', 27);
+ console.log(max); // { name: 'Max', age: 27 }
