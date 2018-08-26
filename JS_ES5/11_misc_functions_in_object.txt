@@ -1,0 +1,24 @@
+ var person = {
+ 	name: 'Max',
+ 	age: 27
+ };
+
+ delete person.name;
+ console.log(person.name); // undefined
+
+ ////////////////////////////////////////////////////////////////////////
+
+ var person = {
+ 	name: 'Max',
+ 	age: 27
+ };
+
+ console.log('name' in person); // true
+ console.log('Name' in person); // false
+
+  ////////////////////////////////////////////////////////////////////////
+
+  for(var field in person) {
+  	console.log(field); // name age
+  	console.log(person[field]); // Max 27
+  }

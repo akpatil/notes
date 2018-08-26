@@ -1,0 +1,32 @@
+ function fn() {
+ 	console.log(this);
+ }
+
+ var obj = {
+ 	ojbFn: fn
+ }
+
+ var person = {
+ 	name: 'Max'
+ }
+
+ - Bind: 
+
+ obj.objFn.bind(person)(); // { name: 'Max' }
+
+ - Call:
+
+ function fn(message) {
+ 	console.log(message + this);
+ }
+
+ obj.objFn.call(person, 'Hello');
+
+ Unlike bind, call invokes call instantly and does'nt need an additional parenthesis to denote a function.
+ First parameter references this followed by function arguments.
+
+ -Apply:
+
+ obj.objFn.apply(person, ['Hello']);
+
+ Same as Call, only difference being it accepts an array for the function arguments.

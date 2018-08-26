@@ -1,0 +1,45 @@
+ - Object.defineProperty();
+
+ 	- Static Object method just like Object.create();
+ 	- Defines properties for an existing object in read only mode my default
+ 	- provides multiple configuration options for the properties defined by this approach
+
+
+ var person = {
+ 	amount: '12000',
+ 	_name: 'Default'
+ 	withdraw: function(withdrawn) {
+ 		this.amount -= withdrawn;
+ 		console.log('Withdrew ' + withdrawn + '. Remaining balance ' + amount);
+ 	}
+ }
+
+ Object.defineProperty(person, 'name', {
+ 	value: 'ID0000-1'
+ });
+
+ - By default person.name has now become read-only, you cannot modify it.
+ - to make it writable, add configuration property as follows:
+
+ Object.defineProperty(person, 'name', {
+ 	value: 'ID0000-1', 
+ 	writable: true
+ });
+
+ - this approach also allows you to create getters/ setters for the said property of the object.
+
+ Object.defineProperty(person, 'name', {
+ 	value: 'ID0000-1', 
+ 	writable: true,
+ 	get: function() {
+ 		return this._name;
+ 	},
+ 	set: function(name) {
+ 		this._name = name;
+ 	}
+ });
+
+ person.name('Max');
+ console.log(person._name); // Max
+
+ - where person.name acts as a helper property function to get/ set _name property in person

@@ -16,7 +16,7 @@
  	ojbFn: fn
  }
 
- obj.objFn()
+ obj.objFn() // refers to the part on the left of the dot
 
  - here this refers to Object obj, as it gets encapsulated inside an object.
 
