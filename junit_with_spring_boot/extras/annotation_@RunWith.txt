@@ -1,0 +1,27 @@
+The SpringRunner provides support for loading a Spring ApplicationContext and having beans @Autowired into your test instance.
+It actually does a whole lot more than that (covered in the Spring Reference Manual), but that's the basic idea.
+
+Whereas, the MockitoJUnitRunner provides support for creating mocks and spies with Mockito.
+
+However, with JUnit 4, you can only use one Runner at a time.
+
+Thus, if you want to use support from Spring and Mockito simultaneously, you can only pick one of those runners.
+
+But you're in luck since both Spring and Mockito provide rules in addition to runners.
+
+For example, you can use the Spring runner with the Mockito rule as follows.
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MyTests {
+
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
+
+    @Mock
+    MyService myService;
+
+    // ...
+}
+Though, typically, if you're using Spring Boot and need to mock a bean from the Spring ApplicationContext 
+you would then use Spring Boot's @MockBean support instead of simply @Mock.
