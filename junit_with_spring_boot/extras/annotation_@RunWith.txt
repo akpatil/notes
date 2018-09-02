@@ -25,3 +25,20 @@ public class MyTests {
 }
 Though, typically, if you're using Spring Boot and need to mock a bean from the Spring ApplicationContext 
 you would then use Spring Boot's @MockBean support instead of simply @Mock.
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+When SpringRunner.class is used, Spring provides corresponding annotations:
+
+@MockBean
+@SpyBean
+Mocks are injected via @Autowired annotation. To enable this functionality tests must be annotated with
+
+@SpringBootTest
+or
+
+@TestExecutionListeners(MockitoTestExecutionListener.class)
+
