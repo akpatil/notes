@@ -1,0 +1,18 @@
+ - persist(): 
+	- Saves new entity data into the database.
+	- If we modify the persisted entity properties within the transaction, then the entity gets updated automatically into the database.
+
+ - merge():
+	- Updates the given entity with primary key.
+
+ - detach(): 
+	- detaches entity from persistant state, thus an entity wont be directly committed to the database. The entity manager no longer tracks changes to the detached entity instance.
+
+ - clear(): 
+	- clears the entities held by the entity manager for tracking.
+
+ - flush(): 
+	- saves the data inside the entity up to that point even if the transaction has not been committed.
+
+ - refresh(): 
+	- If we have modified our persistant object and we dont want any changes in the object to be committed, then we can refresh() entity to retain original values from the database.

@@ -1,0 +1,12 @@
+ @Test
+ @DirtiesContext
+ public void deleteByIdTest_Basic() {
+	...
+	courseRepository.deleteById(1001);
+	...
+ }
+
+ - Whenever we modify application data during unit testing, we can force spring to revert modified data back to original using @DirtiesContext annotation.
+ - When this annotation is added at method level or class level, the data is restored/ resetted back to its original state.
+ - There could be possibilities when a test case for delete runs at the same time another test case tries to get that data; Such scenarios would break the test cases 
+even when there is no defect in the code.

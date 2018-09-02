@@ -1,0 +1,13 @@
+@RunWith(SpringRunner.class)
+@SpringBootTest(CourseRepository.class)
+public class CourseApplicationTest {
+
+	@Test
+	public void contextLoads() {
+	}
+
+}
+
+- @RunWith tells it to run the following tests using context from the spring application. for more info see extras.
+- @SpringBootTest annotation tells it to load the following class for testing purpose.
+- When a test is executed, context is loaded; context is executed; and context is destroyed;
