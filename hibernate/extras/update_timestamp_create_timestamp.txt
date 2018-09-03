@@ -1,0 +1,11 @@
+ - @updatetimestamp:
+
+	@UpdateTimeStamp
+	private LocalDateTime lastUpdatedDate;
+	- this annotation stores the timestamp whenever we update an entity.
+
+ - @createtimestamp: 
+
+	@CreationTimeStamp
+	private LocalDateTime createdDate;
+	 - this annotation stores the timestamp whenever we save/ persist a new entity.
